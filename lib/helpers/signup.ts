@@ -3,7 +3,6 @@ import { db } from '@/lib/db'
 import { cookies } from 'next/headers'
 import { lucia } from '@/lib/auth'
 import { generateId } from 'lucia'
-import { redirect } from 'next/navigation'
 import { z } from 'zod'
 import { signUpFormSchema } from '@/lib/validations/signup'
 
@@ -21,13 +20,14 @@ export async function signUp(values: z.infer<typeof signUpFormSchema>) {
         const session = await lucia.createSession(userId, {});
         const sessionCookie = lucia.createSessionCookie(session.id);
         cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
-        redirectUser()
+        return "Success"
     } catch (e) {
-        // TODO: handle errors especially associated to prisma uniqueness
+        if (typeof e === "string") {
+            return e.toUpperCase() // works, `e` narrowed to string
+        } else if (e instanceof Error) {
+            return e.message // works, `e` narrowed to Error
+        }
     }
 }
 
-function redirectUser() {
-    return redirect('/')
-}
 

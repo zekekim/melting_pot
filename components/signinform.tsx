@@ -1,11 +1,4 @@
 'use client'
-import { db } from '@/lib/db'
-import { cookies } from 'next/headers'
-import { lucia } from '@/lib/auth'
-import { generateId } from 'lucia'
-import { redirect } from 'next/navigation'
-
-
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -23,8 +16,10 @@ import {
 } from '@/components/ui/form'
 
 import { Input } from '@/components/ui/input'
+import { signIn } from '@/lib/helpers/signin'
+import { useRouter } from 'next/navigation'
 
-export async function SignUpForm() {
+export function SignInForm() {
     const form = useForm<z.infer<typeof signInFormSchema>>({
         resolver: zodResolver(signInFormSchema),
         defaultValues: {
@@ -33,32 +28,16 @@ export async function SignUpForm() {
         },
     })
 
+    const router = useRouter()
+
     async function onSubmit(values: z.infer<typeof signInFormSchema>) {
-        'use server'
-        try {
-            const existingUser = await db.user.findUnique({
-                where: {
-                    user: values.username
-                }
-            })
-            if (!existingUser) {
-                throw Error('invalid credentials')
-            }
-            const validPassword = await Bun
-                .password
-                .verify(existingUser.hashed_password, values.password);
-            if (!validPassword) {
-                throw Error('invalid credentials')
-            }
-            const session = await lucia.createSession(existingUser.id, {});
-            const sessionCookie = lucia.createSessionCookie(session.id);
-            cookies()
-                .set(sessionCookie.name,
-                    sessionCookie.value,
-                    sessionCookie.attributes);
-            return redirect('/')
-        } catch (e) {
-            // TODO: handle errors especially associated to prisma uniqueness
+        const message = await signIn(values);
+        console.log(message);
+        if (message === "Success") {
+            router.push('/')
+        } else {
+            form.setError('username', { type: 'custom', message: '' })
+            form.setError('password', { type: 'custom', message: 'invalid credentials' })
         }
     }
 
@@ -81,7 +60,26 @@ export async function SignUpForm() {
                         </FormItem>
                     )}
                 />
-                <Button type="submit">Sign Up </Button>
+                <FormField
+                    control={form.control}
+                    name="password"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>password</FormLabel>
+                            <FormControl>
+                                <Input type="password" placeholder="password" {...field} />
+                            </FormControl>
+                            <FormDescription>
+                                A secure password.
+                            </FormDescription>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+
+                <div className='w-full flex items-center justify-center'>
+                    <Button type="submit">Sign In</Button>
+                </div>
             </form>
         </Form>
     )

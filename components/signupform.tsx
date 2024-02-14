@@ -19,6 +19,7 @@ import {
 } from '@/components/ui/form'
 
 import { Input } from '@/components/ui/input'
+import { useRouter } from 'next/navigation'
 
 export function SignUpForm() {
     const form = useForm<z.infer<typeof signUpFormSchema>>({
@@ -29,8 +30,16 @@ export function SignUpForm() {
         },
     })
 
-    function onSubmit(values: z.infer<typeof signUpFormSchema>) {
-        signUp(values)
+    const router = useRouter()
+
+    async function onSubmit(values: z.infer<typeof signUpFormSchema>) {
+        const message = await signUp(values)
+        if (message === 'Success') {
+            router.push('/')
+        }
+        else {
+            form.setError('username', { type: 'custom', message: 'Username is not unique!' })
+        }
     }
 
     return (
@@ -69,7 +78,9 @@ export function SignUpForm() {
                     )}
                 />
 
-                <Button type="submit">Sign Up </Button>
+                <div className='flex w-full items-center justify-center'>
+                    <Button type="submit">Sign Up </Button>
+                </div>
             </form>
         </Form>
     )

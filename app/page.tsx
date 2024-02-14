@@ -1,10 +1,16 @@
 import { redirect } from "next/navigation";
 import { validateRequest } from "@/lib/auth";
+import SignOutButton from "@/components/signoutbutton";
 
 export default async function Home() {
     const { user } = await validateRequest();
     if (!user) {
-        return redirect("/login");
+        return redirect("/signup");
     }
-    return <h1>Hi, {user.user}!</h1>;
+    return (
+        <div>
+            <h1>Hi, {user.user}!</h1>
+            <SignOutButton />
+        </div>
+    );
 }
