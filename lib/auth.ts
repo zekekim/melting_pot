@@ -11,7 +11,7 @@ const adapter = new PrismaAdapter(db.session, db.user);
 export const lucia = new Lucia(adapter, {
     getUserAttributes: (attributes) => {
         return {
-            user: attributes.user
+            user: attributes.user,
         };
     },
     sessionExpiresIn: new TimeSpan(30, "d"), // no more active/idle
