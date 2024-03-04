@@ -1,18 +1,13 @@
-import { redirect } from "next/navigation";
-import { validateRequest } from "@/lib/auth";
-import SignOutButton from "@/components/signoutbutton";
-import RecipeForm from "@/components/createpost";
-import Header from "@/components/header";
+import { twMerge } from "tailwind-merge";
+import RecipePost from "./recipepost";
 import { Recipe } from "@/lib/types";
-import RecipeFeed from "@/components/recipefeed";
 
-export default async function Home() {
-  const { user } = await validateRequest();
-  if (!user) {
-    return redirect("/signup");
-  }
+interface UserPostsProps {
+  className?: string;
+}
 
-  const recipes: Array<Recipe> = [
+const UserPosts = ({ className = "" }: UserPostsProps) => {
+  const userPosts: Array<Recipe> = [
     {
       name: "Chicken Soup",
       description: "it is chicken soup from de neve",
@@ -135,17 +130,14 @@ export default async function Home() {
   ];
 
   return (
-    <div className="h-dvh">
-      <Header />
-      <div className="px-32 py-8 grid grid-cols-4 gap-20">
-        <div className="flex flex-col col-span-3 ">
-          <RecipeFeed recipes={recipes} />
+    <div className={twMerge("grid grid-cols-3 gap-6", className)}>
+      {userPosts.map((post, index) => (
+        <div className="p-1" key={index}>
+          <RecipePost recipe={post} />
         </div>
-        <div>
-          {/* For recommmended events */}
-          <h1>Recommended Events</h1>
-        </div>
-      </div>
+      ))}
     </div>
   );
-}
+};
+
+export default UserPosts;
