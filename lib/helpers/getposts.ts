@@ -11,6 +11,11 @@ export async function getPosts(): Promise<PostWithRecipe[]> {
         }
         const posts: PostWithRecipe[] = await db.post.findMany(
             {
+                orderBy: [
+                    {
+                        createdAt: 'desc'
+                    }
+                ],
                 include: {
                     recipe: {
                         include:
@@ -35,6 +40,11 @@ export async function getUserPosts(): Promise<PostWithRecipe[]> {
         }
         const posts: PostWithRecipe[] = await db.post.findMany(
             {
+                orderBy: [
+                    {
+                        createdAt: 'desc'
+                    }
+                ],
                 where: {
                     user: user.user,
                 },
