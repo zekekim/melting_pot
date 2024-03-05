@@ -15,7 +15,7 @@ export default async function Home() {
     return (
         <>
             <div className="flex flex-col col-span-3 ">
-                < RecipeFeed posts={recipes} />
+                < RecipeFeed posts={recipes} userId={user.id} />
             </div>
             <div>
                 {/* For recommmended events */}

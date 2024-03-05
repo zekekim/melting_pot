@@ -17,9 +17,12 @@ import { Textarea } from '@/components/ui/textarea'
 
 import { Input } from '@/components/ui/input'
 import { createPost } from "@/lib/helpers/createpost";
+import { useRouter } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 
 export default function RecipeForm() {
+    const router = useRouter()
     const form = useForm<z.infer<typeof postFormSchema>>({
         resolver: zodResolver(postFormSchema),
         defaultValues: {
@@ -34,8 +37,9 @@ export default function RecipeForm() {
         name: 'ingredients',
     });
 
-    function onSubmit(data: z.infer<typeof postFormSchema>) {
-        createPost(data)
+    async function onSubmit(data: z.infer<typeof postFormSchema>) {
+        await createPost(data)
+        router.push('/')
     };
 
     return (
