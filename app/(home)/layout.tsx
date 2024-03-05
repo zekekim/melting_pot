@@ -15,7 +15,7 @@ export default async function RootLayout({
     return (
         <div className="h-dvh">
             <Header />
-            <div className="px-32 py-8 grid grid-cols-4 gap-20">
+            <div className="px-32 py-8">
                 {children}
             </div>
         </div>

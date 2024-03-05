@@ -46,6 +46,8 @@ model Recipe {
 model Reply {
     id     String @id @default(uuid())
     userId String
+    createdAt   DateTime  @default(now())
+    updatedAt   DateTime  @updatedAt
     postId String
     body   String
     post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
@@ -63,6 +65,8 @@ model Like {
 model Post {
     id       String  @id @default(uuid())
     userId   String
+    createdAt   DateTime  @default(now())
+    updatedAt   DateTime  @updatedAt @default(now())
     recipe   Recipe?
     likes    Like[]
     replies  Reply[]
