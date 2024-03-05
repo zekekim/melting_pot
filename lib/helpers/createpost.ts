@@ -30,6 +30,7 @@ export async function createPost(values: z.infer<typeof postFormSchema>) {
             }
         })
     } catch (e) {
+        throw Error("ERROR Creating post: " + e)
         console.log(e)
     }
     revalidatePath('/')

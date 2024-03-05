@@ -1,5 +1,4 @@
 import RecipePost from "@/components/recipepost";
-import { Prisma } from "@prisma/client";
 import { twMerge } from "tailwind-merge";
 
 import { PostWithRecipe } from "@/lib/types";
