@@ -1,12 +1,10 @@
 'use server'
 import { db } from '@/lib/db'
 import { z } from 'zod'
-import { postFormSchema, postSchema } from '@/lib/validations/createpost'
-import { validateRequest } from '../auth'
+import { postFormSchema } from '@/lib/validations/createpost'
+import { validateRequest } from '@/lib/auth'
 
 export async function createPost(values: z.infer<typeof postFormSchema>) {
-
-
     try {
         const user = await validateRequest()
         if (!user) {
@@ -30,7 +28,7 @@ export async function createPost(values: z.infer<typeof postFormSchema>) {
             }
         })
     } catch (e) {
+        console.log(e)
     }
 }
-
 

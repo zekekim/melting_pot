@@ -1,20 +1,22 @@
-import { Recipe } from "@/lib/types";
 import RecipePost from "@/components/recipepost";
+import { Prisma } from "@prisma/client";
 import { twMerge } from "tailwind-merge";
 
+import { PostWithRecipe } from "@/lib/types";
+
 interface RecipeFeedProps {
-  className?: string;
-  recipes: Array<Recipe>;
+    className?: string;
+    posts: PostWithRecipe[];
 }
 
-const RecipeFeed = ({ className = "", recipes }: RecipeFeedProps) => {
-  return (
-    <div className={twMerge("flex flex-col gap-8", className)}>
-      {recipes.map((recipe, index) => (
-        <RecipePost key={index} recipe={recipe} useIngredientPopover={false} />
-      ))}
-    </div>
-  );
+const RecipeFeed = ({ className = "", posts }: RecipeFeedProps) => {
+    return (
+        <div className={twMerge("flex flex-col gap-8", className)}>
+            {posts.map((post, index) => (
+                <RecipePost key={index} post={post} useIngredientPopover={false} />
+            ))}
+        </div>
+    );
 };
 
 export default RecipeFeed;
