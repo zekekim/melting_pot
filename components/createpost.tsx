@@ -16,6 +16,7 @@ import {
 import { Textarea } from '@/components/ui/textarea'
 
 import { Input } from '@/components/ui/input'
+import { createPost } from "@/lib/helpers/createpost";
 
 
 export default function RecipeForm() {
@@ -34,7 +35,7 @@ export default function RecipeForm() {
     });
 
     function onSubmit(data: z.infer<typeof postFormSchema>) {
-        console.log(data);
+        createPost(data)
     };
 
     return (

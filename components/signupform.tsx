@@ -71,26 +71,19 @@ export function SignUpForm() {
                                 <Input type="password" placeholder="password" {...field} />
                             </FormControl>
                             <FormDescription>
-                                Your password must meet the following criteria:
-                                <ul className="list-disc list-inside">
-                                    <li>Minimum 8 characters</li>
-                                    <li>Maximum 50 characters</li>
-                                    <li>At least one special character (!@#$&*)</li>
-                                    <li>At least one uppercase letter</li>
-                                    <li>At least one digit</li>
-                                </ul>
+                                Make a secure password!
                             </FormDescription>
                             <FormMessage />
                         </FormItem>
                     )}
                 />
-    
+
                 <div className='flex w-full items-center justify-center'>
                     <Button type="submit">Sign Up</Button>
                 </div>
             </form>
         </Form>
     )
-    
+
 }
 
