@@ -12,10 +12,10 @@ model User {
     id              String    @id
     hashed_password String
     user            String    @unique
-    sessions        Session[]
-    replies         Reply[]
-    posts           Post[]
     likes           Like[]
+    posts           Post[]
+    replies         Reply[]
+    sessions        Session[]
 }
 
 model Session {
@@ -36,39 +36,40 @@ model Ingredient {
 
 model Recipe {
     id          String       @id @default(uuid())
-    postId      String       @unique
     title       String
-    ingredients Ingredient[]
     body        String
+    postId      String       @unique
+    ingredients Ingredient[]
     Post        Post         @relation(fields: [postId], references: [id])
 }
 
 model Reply {
-    id     String @id @default(uuid())
-    userId String
-    createdAt   DateTime  @default(now())
-    updatedAt   DateTime  @updatedAt
-    postId String
-    body   String
-    post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
-    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+    id        String   @id @default(uuid())
+    userId    String
+    postId    String
+    body      String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Like {
-    id     String  @id @default(uuid())
     userId String
-    user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-    Post   Post?   @relation(fields: [postId], references: [id])
-    postId String?
+    postId String
+    Post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@id([userId, postId])
 }
 
 model Post {
-    id       String  @id @default(uuid())
-    userId   String
-    createdAt   DateTime  @default(now())
-    updatedAt   DateTime  @updatedAt @default(now())
-    recipe   Recipe?
-    likes    Like[]
-    replies  Reply[]
-    user     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+    id        String   @id @default(uuid())
+    userId    String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt @default(now())
+    likes     Like[]
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    recipe    Recipe?
+    replies   Reply[]
 }

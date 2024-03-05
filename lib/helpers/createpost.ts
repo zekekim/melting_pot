@@ -3,6 +3,8 @@ import { db } from '@/lib/db'
 import { z } from 'zod'
 import { postFormSchema } from '@/lib/validations/createpost'
 import { validateRequest } from '@/lib/auth'
+import { revalidatePath } from 'next/cache'
+import { redirect } from 'next/navigation'
 
 export async function createPost(values: z.infer<typeof postFormSchema>) {
     try {
@@ -31,5 +33,6 @@ export async function createPost(values: z.infer<typeof postFormSchema>) {
         throw Error("ERROR Creating post: " + e)
         console.log(e)
     }
+    revalidatePath('/')
 }
 

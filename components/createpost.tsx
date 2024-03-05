@@ -17,6 +17,8 @@ import { Textarea } from "@/components/ui/textarea";
 
 import { Input } from "@/components/ui/input";
 import { createPost } from "@/lib/helpers/createpost";
+import { useRouter } from "next/navigation";
+import { revalidatePath } from "next/cache";
 import { ToastAction } from "@/components/ui/toast";
 import { useToast } from "@/components/ui/use-toast";
 
@@ -31,6 +33,7 @@ export default function RecipeForm() {
       body: "",
     },
   });
+
 
   const { fields, append, remove } = useFieldArray({
     control: form.control,
@@ -53,6 +56,7 @@ export default function RecipeForm() {
           action: <ToastAction altText="Try again">Try again</ToastAction>,
         })
       );
+      router.push('/')
   }
 
   return (
