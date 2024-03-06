@@ -38,6 +38,9 @@ const Header = () => {
                 <Link href='/make_post'>
                     <Button variant="outline">Create New Recipe</Button>
                 </ Link>
+                <Link href='/create_event'>
+                    <Button variant="outline">Create New Event</Button>
+                </ Link>
                 <DropdownMenu>
                     <DropdownMenuTrigger>
                         <Avatar>
