@@ -24,6 +24,7 @@ import { useToast } from "@/components/ui/use-toast";
 
 export default function RecipeForm() {
   const { toast } = useToast();
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof postFormSchema>>({
     resolver: zodResolver(postFormSchema),

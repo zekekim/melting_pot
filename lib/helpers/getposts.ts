@@ -2,6 +2,7 @@
 import { db } from '@/lib/db'
 import { validateRequest } from '@/lib/auth'
 import { PostWithRecipe } from '@/lib/types'
+import { Post } from '@prisma/client'
 
 export async function getPosts(): Promise<PostWithRecipe[]> {
     try {
@@ -64,3 +65,32 @@ export async function getUserPosts(): Promise<PostWithRecipe[]> {
     return []
 }
 
+export async function getTopPosts(): Promise<PostWithRecipe[]> {
+    try {
+        const user = await validateRequest()
+        if (!user || user.user === null) {
+            throw Error("no user")
+        }
+        const posts: PostWithRecipe[] = await db.post.findMany(
+            {
+                orderBy: [
+                    {
+                        likes: { _count: 'desc' }
+                    }
+                ],
+                take: 5,
+                include: {
+                    recipe: {
+                        include:
+                            { ingredients: true }
+                    },
+                    likes: true,
+                    replies: true,
+                }
+            })
+        return posts
+    } catch (e) {
+
+    }
+    return []
+}
