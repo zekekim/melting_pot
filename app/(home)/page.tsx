@@ -8,7 +8,7 @@ export default async function Home() {
   return (
     <div className="grid grid-cols-4 gap-20">
       <div className="flex flex-col col-span-3 ">
-        <RecipeFeed posts={recipes} />
+        <RecipeFeed posts={recipes} userId={""} />
       </div>
       <div>
         {/* For recommmended events */}
