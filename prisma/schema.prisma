@@ -80,4 +80,6 @@ model Event {
     body      String
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt @default(now())
+    user      User
+    replies   Reply[]
 }
