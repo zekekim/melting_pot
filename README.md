@@ -1,6 +1,6 @@
 # Melting Pot
 
-Melting Pot is a dynamic web application designed for efficient and interactive user experiences. Follow these steps to set up and run the development environment on your local machine.
+Melting Pot is a dynamic web application designed for efficient and interactive user experiences involving cooking and recipe sharing. Follow these steps to set up and run the development environment on your local machine.
 
 ## Prerequisites
 
