@@ -49,7 +49,7 @@ model Reply {
     postId    String
     body      String
     createdAt DateTime @default(now())
-    updatedAt DateTime
+    updatedAt DateTime @updatedAt
     post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
     user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
@@ -67,7 +67,7 @@ model Post {
     id        String   @id @default(uuid())
     userId    String
     createdAt DateTime @default(now())
-    updatedAt DateTime @default(now())
+    updatedAt DateTime @updatedAt @default(now())
     likes     Like[]
     user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
     recipe    Recipe?
