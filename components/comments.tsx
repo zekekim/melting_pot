@@ -7,36 +7,37 @@ import {
     CardContent,
     CardDescription
 } from "@/components/ui/card";
-import { PostWithRecipe } from "@/lib/types";
+import { PostWithRecipeAndComments } from "@/lib/types";
 import { Textarea } from "./ui/textarea";
 import { Button } from "./ui/button";
 import { useState } from "react";
 import { randomUUID } from "crypto";
 import { Reply } from "@prisma/client";
+import { ReplyWithUser } from "@/lib/types";
 import { createComment } from "@/lib/helpers/createcomment";
-import { commentSchema } from "@/lib/validations/createcomment";
+import { User } from "lucia";
 
-export function CommentSection({ post, userId }: { post: PostWithRecipe, userId: string}) {
+export function CommentSection({ post, userId, user }: { post: PostWithRecipeAndComments, userId: string, user: User }) {
 
     const [commentContent, setCommentContent] = useState('')
-    const [optimisticComments, setOptimisticComments] = useState<Reply[]>(post.replies)
+    const [optimisticComments, setOptimisticComments] = useState<ReplyWithUser[]>(post.replies)
 
 
     async function postComment() {
-        const newComment = {postId: post.id, body: commentContent}
-        const newComments: Reply[] = [ { id: randomUUID(), userId: userId, postId: post.id, body: commentContent } as Reply,... optimisticComments]
+        const newComment = { postId: post.id, body: commentContent }
+        const newComments: ReplyWithUser[] = [{ id: crypto.randomUUID(), userId: userId, user: user, postId: post.id, body: commentContent } as ReplyWithUser, ...optimisticComments]
         setOptimisticComments(newComments)
         await createComment(newComment)
     }
     return (
-        <Card>
+        <Card className="grow h-[36rem] flex flex-col justify-between">
             <CardHeader>
                 <CardTitle>
                     comments
                 </CardTitle>
             </CardHeader>
-            <CardContent>
-                {post.replies.map((comment) => {
+            <CardContent className="h-fit overflow-y-scroll">
+                {optimisticComments.map((comment) => {
                     return (<Card>
                         <CardHeader>
                             <CardTitle>
@@ -49,7 +50,7 @@ export function CommentSection({ post, userId }: { post: PostWithRecipe, userId:
                     </Card>)
                 })}
             </CardContent>
-            <CardFooter>
+            <CardFooter className="min-w-40 flex flex-col items-start gap-4">
                 <Textarea
                     value={commentContent}
                     onChange={e => setCommentContent(e.target.value)}
