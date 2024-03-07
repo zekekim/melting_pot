@@ -20,7 +20,7 @@ export default async function Home() {
       </h1>
       <TopRecipes className="w-5/6 self-center" />
       <h1 className="text-xl font-medium text-center">Your Posts</h1>
-      <UserPosts posts={recipes} />
+      <UserPosts userId={user.id} posts={recipes} />
     </div>
   );
 }

@@ -16,13 +16,14 @@ import {
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { FcComments, FcLike, FcLikePlaceholder } from "react-icons/fc";
+import { FcComments, FcEmptyTrash, FcLike, FcLikePlaceholder } from "react-icons/fc";
 import { LuPanelTopOpen } from "react-icons/lu";
 import { PostWithRecipe } from "@/lib/types";
 import { addLike, removeLike } from "@/lib/helpers/addlike";
+import { deletePost } from "@/lib/helpers/deletepost"
 import { likeSchema } from "@/lib/validations/createlike";
 import { Ingredient, Recipe } from "@prisma/client";
-import { PostWithRecipe } from "@/lib/types";
+import { Like } from "@prisma/client";
 
 const IngredientPopover = ({
   ingredients,
@@ -75,7 +76,7 @@ const IngredientList = ({
 interface RecipePostProps {
     post: PostWithRecipe;
     useIngredientPopover?: boolean;
-    userId: String
+    userId: string
 }
 
 const RecipePost = ({
@@ -125,8 +126,6 @@ const RecipePost = ({
         }
     }
 
-
-
     return (
         <Card className="h-full flex flex-col justify-between">
             <CardHeader>
@@ -140,7 +139,8 @@ const RecipePost = ({
                     )}
                 </CardContent>
             </div>
-            <CardFooter className="flex flex-row justify-start gap-7">
+            <CardFooter className="flex flex-row justify-between gap-7">
+              <div className="flex flex-row gap-6">
                 <button className="flex gap-2 items-center" onClick={() => { addOptimisticLike() }}>
                     {optimisticPost.likes.some((like) => like.userId === userId) ?
                         <FcLike />
@@ -153,10 +153,16 @@ const RecipePost = ({
                     <FcComments />
                     <h3 className="font-light text-sm">{post.replies.length}</h3>
                 </button>
-
                 {useIngredientPopover && (
                     <IngredientPopover ingredients={post.recipe!.ingredients} />
                 )}
+              </div>
+            <button onClick={() => deletePost({
+              postId: post.id,
+              userId: userId
+            })}>
+                <FcEmptyTrash />
+            </button>
             </CardFooter>
         </Card>
     );
