@@ -16,13 +16,13 @@ import {
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { FcComments, FcLike, FcLikePlaceholder } from "react-icons/fc";
+import { FcComments, FcLike, FcLikePlaceholder, FcEmptyTrash } from "react-icons/fc";
 import { LuPanelTopOpen } from "react-icons/lu";
 import { PostWithRecipe } from "@/lib/types";
 import { addLike, removeLike } from "@/lib/helpers/addlike";
 import { likeSchema } from "@/lib/validations/createlike";
 import { Ingredient, Recipe } from "@prisma/client";
-import { PostWithRecipe } from "@/lib/types";
+import { Like } from "@prisma/client";
 
 const IngredientPopover = ({
   ingredients,
@@ -125,7 +125,7 @@ const RecipePost = ({
         }
     }
 
-
+    
 
     return (
         <Card className="h-full flex flex-col justify-between">
