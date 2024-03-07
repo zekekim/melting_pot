@@ -15,6 +15,7 @@ model User {
     likes           Like[]
     posts           Post[]
     replies         Reply[]
+    events          Event[]
     sessions        Session[]
 }
 
@@ -72,4 +73,14 @@ model Post {
     user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
     recipe    Recipe?
     replies   Reply[]
+}
+
+model Event {
+    id        String   @id @default(uuid())
+    userId    String
+    title     String
+    body      String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt @default(now())
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
