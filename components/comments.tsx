@@ -28,6 +28,7 @@ export function CommentSection({ post, userId, user }: { post: PostWithRecipeAnd
         const newComments: ReplyWithUser[] = [{ id: crypto.randomUUID(), userId: userId, user: user, postId: post.id, body: commentContent } as ReplyWithUser, ...optimisticComments]
         setOptimisticComments(newComments)
         await createComment(newComment)
+        setCommentContent('')
     }
     return (
         <Card className="grow h-[36rem] flex flex-col justify-between">
