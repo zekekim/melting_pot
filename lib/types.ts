@@ -7,7 +7,7 @@ export interface Recipe {
   likesCount: number;
 }
 export type PostWithRecipe = Prisma.PostGetPayload<{
-    include: { recipe: { include: { ingredients: true } }, likes: true, replies: true }
+    include: { recipe: { include: { ingredients: true } }, likes: true, replies: { include: { user: true } } }
 }>
 export type RecipeWithIngredients = Prisma.RecipeGetPayload<{
     include: { ingredients: true }
