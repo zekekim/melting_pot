@@ -87,6 +87,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - [ ] Daniel: Restructure Card, Refresh UsersPosts
 - [ ] Will: Top 5 Posts on Account Page (Carousel for the Week)
     - Displays the post and handles query for top 5 in the week
-- [ ] Chiemeka: Events and reccomended events
+- [ ] Chiemeka: Event creation and reccomended events
     - Make events work cuz they currently don't
+    - Add space for events on user page 
     
