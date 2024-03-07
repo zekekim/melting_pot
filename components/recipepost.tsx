@@ -18,15 +18,14 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import {
   FcComments,
-  FcLike,
-  FcLikePlaceholder,
   FcEmptyTrash,
 } from "react-icons/fc";
 import { LuPanelTopOpen } from "react-icons/lu";
-import { Ingredient, Like, Recipe } from "@prisma/client";
+import { Ingredient } from "@prisma/client";
 import { PostWithRecipe } from "@/lib/types";
 import LikeButton from "./likebutton";
 import { twMerge } from "tailwind-merge";
+import { deletePost } from "@/lib/helpers/deletepost"
 
 const IngredientPopover = ({
   ingredients,
@@ -114,6 +113,12 @@ const RecipePost = ({
         {useIngredientPopover && (
           <IngredientPopover ingredients={post.recipe!.ingredients} />
         )}
+        <button onClick={() => deletePost({
+              postId: post.id,
+              userId: userId
+            })}>
+          <FcEmptyTrash />
+        </button>
       </CardFooter>
     </Card>
   );

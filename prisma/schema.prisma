@@ -41,7 +41,7 @@ model Recipe {
     body        String
     postId      String       @unique
     ingredients Ingredient[]
-    Post        Post         @relation(fields: [postId], references: [id])
+    Post        Post         @relation(fields: [postId], references: [id], onDelete: Cascade)
 }
 
 model Reply {
