@@ -1,4 +1,5 @@
 import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 export interface Recipe {
     name: string;
     description: string;
@@ -27,8 +28,8 @@ export interface Event {
     date: Date;
     likesCount: number;
 }
-export type PostWithEvent = Prisma.PostGetPayload<{
-    include: { event: true, likes: true, replies: true }
+export type ThingWithEvent = Prisma.EventGetPayload<{
+    include: {
 }>
 
-
+ 
