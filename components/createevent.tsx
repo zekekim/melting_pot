@@ -38,6 +38,7 @@ export default function EventForm()
     });
 
     function onSubmit(data: z.infer<typeof eventFormSchema>){
+    console.log(data)
     createEvent(data)
         .then(() => {
             toast({

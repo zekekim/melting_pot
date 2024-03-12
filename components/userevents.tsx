@@ -1,16 +1,22 @@
 import EventPost from "@/components/eventpost";
 import { twMerge } from "tailwind-merge";
-import { Event } from "@prisma/client";
-import { validateRequest } from "@/lib/auth";
-import { dbEvents } from "@/lib/helpers/getevent";
 
-interface EventsFeedProps {
+interface EventsProps {
     className?: string;
-    events: Event[];
     userId: string;
+    events: Event[];
 }
 
-const EventsFeed = ({ className = "", events, userId }: EventsFeedProps) => {
+interface Event {
+    id: string;
+    userId: string;
+    title: string;
+    body: string;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+const userEvents = ({ className = "", events, userId }: EventsProps) => {
     return (
         <div className={twMerge("flex flex-col gap-8", className)}>
             {events.map((event, index) => (
@@ -20,5 +26,5 @@ const EventsFeed = ({ className = "", events, userId }: EventsFeedProps) => {
     );
 }
 
-export default EventsFeed;
 
+export default userEvents

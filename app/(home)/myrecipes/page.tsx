@@ -4,12 +4,14 @@ import TopRecipes from "@/components/toprecipes";
 import UserPosts from "@/components/userposts";
 import { PostWithRecipe } from "@/lib/types";
 import { getUserPosts, getTopPosts } from "@/lib/helpers/getposts";
+import UserEvents from "@/components/userevents";
 
 export default async function Home() {
   const { user } = await validateRequest();
   if (!user) {
     return redirect("/signup");
   }
+
 
   const recipes: Array<PostWithRecipe> = await getUserPosts();
   const topRecipes: Array<PostWithRecipe> = await getTopPosts();
@@ -22,6 +24,8 @@ export default async function Home() {
       <TopRecipes top_five={topRecipes} userId={user.id} className="w-5/6 self-center" />
       <h1 className="text-xl font-medium text-center">Your Posts</h1>
       <UserPosts userId={user.id} posts={recipes} />
+      <h1 className="text-xl font-medium text-center">Your Events</h1>
+      <UserEvents userId={user.id} events={[]} />
     </div>
   );
 }
