@@ -28,8 +28,4 @@ export interface Event {
     date: Date;
     likesCount: number;
 }
-export type ThingWithEvent = Prisma.EventGetPayload<{
-    include: {
-}>
 
- 
