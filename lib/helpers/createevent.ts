@@ -9,29 +9,27 @@ import { redirect } from 'next/navigation'
 
 export async function createEvent(values: z.infer<typeof eventFormSchema>) {
     try {
-        const user = await validateRequest()
-        if (!user) {
-            throw Error("no user")
+      const user = await validateRequest();
+      if (!user) {
+        throw new Error("no user");
+      }
+  
+      await db.event.create({
+        data: {
+          userId: user.user!.id,  
+          title: values.title,
+          createdAt: values.date,  
+          body: values.body,
         }
-        await db.event.create({
-            data:
-            {
-                userId: user.user!.id,
-                event: {
-                    create: {
-                        title: values.title,
-                        date: values.date,
-                        body: values.body
-                    }
-                },
-            }
-        })
+      });
+  
+      revalidatePath('/');
     } catch (e) {
-        throw Error("ERROR Creating event: " + e)
-        console.log(e)
+      console.error("ERROR Creating event: ", e);
+      throw new Error("ERROR Creating event: " + e);
     }
-    revalidatePath('/')
-}
+  }
+  
 
 
 
