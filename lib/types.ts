@@ -19,3 +19,11 @@ export type RecipeWithIngredients = Prisma.RecipeGetPayload<{
 export type ReplyWithUser = Prisma.ReplyGetPayload<{
     include: { user: true }
 }>
+
+export interface Event {
+    name: string;
+    description: string;
+    imgUrl: string;
+    date: Date;
+    likesCount: number;
+}

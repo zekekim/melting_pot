@@ -7,10 +7,9 @@ import { revalidatePath } from 'next/cache'
 
 
 export async function createEvent(values: z.infer<typeof eventFormSchema>) {
-    const dateTimeString = `${values.date}T${values.time}:00Z`;
-    const date = new Date(dateTimeString);
-    console.log(date)
     try {
+        const dateTimeString = `${values.date}T${values.time}:00Z`;
+        const date = new Date(dateTimeString);
         const { user } = await validateRequest()
         if (!user) {
             throw Error("no user")
@@ -29,8 +28,8 @@ export async function createEvent(values: z.infer<typeof eventFormSchema>) {
         console.log(e)
         throw Error("ERROR Creating event: " + e)
     }
-    revalidatePath('/')
 }
+
 
 
 
