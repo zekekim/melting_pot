@@ -34,7 +34,7 @@ interface EventPostProps {
     userId: string;
 }
 
-const EventPost = async ({ event, userId }: EventPostProps) => {
+const EventPost = ({ event, userId }: EventPostProps) => {
 
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
     return (
