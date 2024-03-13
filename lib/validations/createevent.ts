@@ -10,18 +10,11 @@ export const eventSchema = z.object({
 
 export const eventFormSchema = z.object({
     title: z.string().min(2).max(50),
-    body: z.string().min(10),
     description: z.string().min(2).max(50),
     location: z.string().min(2).max(50),
     date: z.string().min(2).max(50),
     time: z.string().min(2).max(50),
 })
 
-export const postSchema = z.object({
-    post: eventFormSchema,
-    body: z.string(),
-    likes: z.number(),
-    replies: z.array(replySchema)
-})
 
 
