@@ -28,6 +28,7 @@ export async function createEvent(values: z.infer<typeof eventFormSchema>) {
         console.log(e)
         throw Error("ERROR Creating event: " + e)
     }
+    revalidatePath('/')
 }
 
 

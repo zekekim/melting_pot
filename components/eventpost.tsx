@@ -24,13 +24,18 @@ import { LuPanelTopOpen } from "react-icons/lu";
 import { Event } from "@prisma/client";
 import LikeButton from "./likebutton";
 import { deleteEvent } from "@/lib/helpers/deleteevent";
+import { getEvent } from "@/lib/helpers/getevent";
+import { useRouter } from "next/router";
+import { NotFoundError } from "@prisma/client/runtime/library";
+import { notFound } from "next/navigation";
 
 interface EventPostProps {
     event: Event;
     userId: string;
 }
 
-const EventPost = ({ event, userId }: EventPostProps) => {
+const EventPost = async ({ event, userId }: EventPostProps) => {
+
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
     return (
         <Card className="w-full">

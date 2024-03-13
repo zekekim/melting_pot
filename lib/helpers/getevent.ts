@@ -67,3 +67,13 @@ export async function dbEvents(): Promise<Event[]> {
     return []
 }
 
+export async function getEvent(id: string): Promise<Event | null> {
+    const event: Event | null = await db.event.findUnique({
+        where:
+        {
+            id: id
+        }
+    })
+    return event
+}
+
