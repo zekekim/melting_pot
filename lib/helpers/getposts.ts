@@ -94,3 +94,38 @@ export async function getTopPosts(): Promise<PostWithRecipe[]> {
     }
     return []
 }
+
+export async function getPostPrefix(prefix: string): Promise<PostWithRecipe[]> {
+    try {
+        const { user } = await validateRequest();
+        if (!user) {
+            throw Error("no user")
+        }
+        const posts: PostWithRecipe[] = await db.post.findMany(
+            {
+                where: {
+                    recipe: {
+                        title: {
+                            startsWith: prefix
+                        }
+                    }
+                },
+                include:
+                {
+                    recipe: {
+                        include: {
+                            ingredients: true
+                        }
+                    },
+                    likes: true,
+                    replies: true,
+                }
+            }
+        )
+        return posts;
+
+    }
+    catch (e) {
+    }
+    return []
+}
