@@ -7,8 +7,7 @@ Melting Pot is a dynamic web application designed for efficient and interactive 
 Before you begin, ensure you have the following installed:
 - Git
 - Node.js
-- Bun (optional)
-- npm (if not using Bun)
+- Bun
 
 ## Getting Started
 
@@ -33,13 +32,6 @@ If you prefer to use Bun, run the following command:
 bun install
 ```
 
-#### Using npm
-
-If you're using npm instead, execute:
-
-```bash
-npm install
-```
 
 ### Running the Development Server
 
@@ -51,14 +43,6 @@ To run the development server with Bun, use the following command:
 
 ```bash
 bun --bun run dev
-```
-
-#### Using npm
-
-For npm, start the development server with:
-
-```bash
-npm run dev
 ```
 
 ### Accessing the Application
@@ -76,18 +60,9 @@ You should now see the Melting Pot application running locally on your machine.
 For more details on using Bun or npm commands, consult their respective documentation.
 
 - Bun: [https://bun.sh/docs](https://bun.sh/docs)
-- npm: [https://docs.npmjs.com/](https://docs.npmjs.com/)
 
 
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## TODO
-- [ ] Daniel: Refresh posts on refresh page (Convert feed to client component)
-- [ ] Daniel: Restructure Card, Refresh UsersPosts
-- [ ] Will: Top 5 Posts on Account Page (Carousel for the Week)
-    - Displays the post and handles query for top 5 in the week
-- [ ] Chiemeka: Event creation and reccomended events
-    - Make events work cuz they currently don't
-    - Add space for events on user page 
     
